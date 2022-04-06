@@ -1,0 +1,12 @@
+S = A
+S = B
+A = C
+A = D
+C = S
+C = a
+C =
+D = S
+D = b
+E = S
+E = c
+E =
