@@ -22,6 +22,7 @@ for l_product in sorted(gr):
     for r_product in sorted(gr[l_product]):
         print(l_product, '=', *r_product)
 
+# Удаление непорождающих нетерминалов
 parent_non_terminal = {()}
 non_terminal = sorted(gr)
 
@@ -74,6 +75,8 @@ for l_product in sorted(gr):
     for r_product in sorted(gr[l_product]):
         print(l_product, '=', *r_product)
 
+
+# Удаление недостижимых нетерминалов
 non_terminal.clear()
 non_terminal = sorted(gr)
 
@@ -172,10 +175,11 @@ for l_product in sorted(gr):
     for r_product in (gr[l_product]):
         print(l_product, '=', *r_product)
 
+# Удаление цепных правил
 betas = {}
-nts = sorted(gr)
+non_terminal_symbls = sorted(gr)
 
-for A_i in nts:
+for A_i in non_terminal_symbls:
     N_prev = A_i
     i = 1
     finish = False
@@ -183,7 +187,7 @@ for A_i in nts:
         N_i = set().union(N_prev)
         for B in N_prev:
             for C in gr[B]:
-                if len(C) == 1 and C[0] in nts:
+                if len(C) == 1 and C[0] in non_terminal_symbls:
                     N_i.add(C[0])
         if N_i != N_prev:
             N_prev = N_i
@@ -199,7 +203,7 @@ def is_chain(alpha, non_terminals):
 new_grammar = {}
 for B, alphas in gr.items():
     for alpha in alphas:
-        if not is_chain(alpha, nts):
+        if not is_chain(alpha, non_terminal_symbls):
             for A, Bs in betas.items():
                 if B in Bs:
                     if A in new_grammar:
