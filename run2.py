@@ -200,18 +200,18 @@ def is_chain(alpha, non_terminals):
     return len(alpha) == 1 and alpha[0] in non_terminals
 
 
-new_grammar = {}
+new_gr = {}
 for B, alphas in gr.items():
     for alpha in alphas:
         if not is_chain(alpha, non_terminal_symbls):
             for A, Bs in betas.items():
                 if B in Bs:
-                    if A in new_grammar:
-                        new_grammar[A].add(alpha)
+                    if A in new_gr:
+                        new_gr[A].add(alpha)
                     else:
-                        new_grammar[A] = {alpha}
+                        new_gr[A] = {alpha}
 
 print("\nУдалим цепные правила")
-for l_product in sorted(new_grammar):
-    for r_product in new_grammar[l_product]:
+for l_product in sorted(new_gr):
+    for r_product in new_gr[l_product]:
         print(l_product, '=', *r_product)
