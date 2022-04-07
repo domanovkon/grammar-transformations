@@ -1,6 +1,6 @@
 from ast import literal_eval
 
-gr_file = open('g4.txt')
+gr_file = open('g1.txt')
 gr = {}
 for line in gr_file:
     line = line.strip()
@@ -74,7 +74,6 @@ print("\nУдалим правила, содержащие непорождаю�
 for l_product in sorted(gr):
     for r_product in sorted(gr[l_product]):
         print(l_product, '=', *r_product)
-
 
 # Удаление недостижимых нетерминалов
 non_terminal.clear()
@@ -182,8 +181,8 @@ non_terminal_symbls = sorted(gr)
 for A_i in non_terminal_symbls:
     N_prev = A_i
     i = 1
-    finish = False
-    while not finish:
+    end = False
+    while not end:
         N_i = set().union(N_prev)
         for B in N_prev:
             for C in gr[B]:
@@ -194,11 +193,12 @@ for A_i in non_terminal_symbls:
             i += 1
         else:
             betas[A_i] = N_i
-            finish = True
+            end = True
 
 
 def is_chain(alpha, non_terminals):
     return len(alpha) == 1 and alpha[0] in non_terminals
+
 
 new_grammar = {}
 for B, alphas in gr.items():
